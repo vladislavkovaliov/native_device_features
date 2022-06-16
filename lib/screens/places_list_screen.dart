@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:native_device_features/providers/great_places.dart';
 import 'package:native_device_features/screens/add_place_screen.dart';
+import 'package:provider/provider.dart';
 
 class PlaceListScreen extends StatelessWidget {
   static String routeName = 'place-list-screen';
@@ -19,8 +23,41 @@ class PlaceListScreen extends StatelessWidget {
           child: const Icon(CupertinoIcons.add),
         ),
       ),
-      child: const Center(
-        child: Text("place list"),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Consumer<GreatPlaces>(
+            builder: (ctx, greatPlaces, _) {
+              if (greatPlaces.items.isEmpty) {
+                return const Center(
+                  child: Text('Got no places yet, start adding some.'),
+                );
+              }
+
+              return CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, idx) {
+                        return Row(children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                FileImage(greatPlaces.items[idx].image),
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(greatPlaces.items[idx].title),
+                        ]);
+                      },
+                      childCount: greatPlaces.items.length,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

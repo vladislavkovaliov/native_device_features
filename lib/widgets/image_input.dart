@@ -8,7 +8,12 @@ import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({Key? key}) : super(key: key);
+  Function onSelectedImage;
+
+  ImageInput({
+    Key? key,
+    required this.onSelectedImage,
+  }) : super(key: key);
 
   @override
   State<ImageInput> createState() => _ImageInputState();
@@ -18,7 +23,7 @@ class _ImageInputState extends State<ImageInput> {
   File? _storedImage;
 
   Future<void> _takePicture() async {
-    final pickedImage = await await ImagePicker().pickImage(
+    final pickedImage = await ImagePicker().pickImage(
       // TODO: replace it to cemare when you use real devie
       source: ImageSource.gallery,
       maxWidth: 600,
@@ -31,6 +36,8 @@ class _ImageInputState extends State<ImageInput> {
     final fileName = path.basename(imageFile.path);
 
     final savedImage = await imageFile.copy('${appDir.path}/$fileName');
+
+    widget.onSelectedImage(savedImage);
   }
 
   _setStoredImage(File imageFile) {
