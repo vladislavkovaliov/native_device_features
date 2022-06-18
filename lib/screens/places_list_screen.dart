@@ -44,9 +44,7 @@ class PlaceListScreen extends StatelessWidget {
                             backgroundImage:
                                 FileImage(greatPlaces.items[idx].image),
                           ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
+                          const SizedBox(width: 10.0),
                           Text(greatPlaces.items[idx].title),
                         ]);
                       },
