@@ -11,7 +11,7 @@ class DBHelper {
     // final dbPath = await sql.getDatabasesPath();
 
     return sql.openDatabase(
-      path.join(appDir.path, 'places.db'),
+      path.join(appDir.path, 'places2.db'),
       onCreate: (db, version) {
         return db.execute('''
           CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)

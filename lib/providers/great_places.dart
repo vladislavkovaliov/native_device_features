@@ -36,16 +36,23 @@ class GreatPlaces with ChangeNotifier {
   Future<void> featchAndSetPlaces() async {
     final list = await DBHelper.getData('user_places');
 
-    _items = list
-        .map(
-          (x) => Place(
-            id: x['id'],
-            title: x['title'],
-            image: File(x['image']),
-            location: null, // TODO: use PlaceLocation constructor
-          ),
-        )
-        .toList();
+    _items = [];
+    print(list);
+
+    if (list.isEmpty) {
+      _items = [];
+    } else {
+      _items = list
+          .map(
+            (x) => Place(
+              id: x['id'],
+              title: x['title'],
+              image: File(x['image']),
+              location: null, // TODO: use PlaceLocation constructor
+            ),
+          )
+          .toList();
+    }
 
     notifyListeners();
   }

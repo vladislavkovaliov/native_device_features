@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:native_device_features/providers/great_places.dart';
 import 'package:native_device_features/widgets/image_input.dart';
+import 'package:native_device_features/widgets/location_input.dart';
 import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatelessWidget {
@@ -63,6 +64,10 @@ class AddPlaceScreen extends StatelessWidget {
               ImageInput(
                 onSelectedImage: _selectImage,
               ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              LocationInput(),
               const SizedBox(
                 height: 20.0,
               ),

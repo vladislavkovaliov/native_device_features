@@ -50,5 +50,9 @@
 	<string>We need to take picutre!</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to take picutre!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need to take location!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need to take location!</string>
 </dict>
 </plist>
