@@ -26,34 +26,41 @@ class PlaceListScreen extends StatelessWidget {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Consumer<GreatPlaces>(
-            builder: (ctx, greatPlaces, _) {
-              if (greatPlaces.items.isEmpty) {
-                return const Center(
-                  child: Text('Got no places yet, start adding some.'),
-                );
-              }
+          child: FutureBuilder(
+            future: Provider.of<GreatPlaces>(
+              context,
+              listen: false,
+            ).featchAndSetPlaces(),
+            builder: (ctx, snapshot) => Consumer<GreatPlaces>(
+              builder: (ctx, greatPlaces, _) {
+                print(greatPlaces.items);
+                if (greatPlaces.items.isEmpty) {
+                  return const Center(
+                    child: Text('Got no places yet, start adding some.'),
+                  );
+                }
 
-              return CustomScrollView(
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, idx) {
-                        return Row(children: [
-                          CircleAvatar(
-                            backgroundImage:
-                                FileImage(greatPlaces.items[idx].image),
-                          ),
-                          const SizedBox(width: 10.0),
-                          Text(greatPlaces.items[idx].title),
-                        ]);
-                      },
-                      childCount: greatPlaces.items.length,
+                return CustomScrollView(
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, idx) {
+                          return Row(children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  FileImage(greatPlaces.items[idx].image),
+                            ),
+                            const SizedBox(width: 10.0),
+                            Text(greatPlaces.items[idx].title),
+                          ]);
+                        },
+                        childCount: greatPlaces.items.length,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
