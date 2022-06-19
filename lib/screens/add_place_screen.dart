@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:native_device_features/models/place.dart';
 import 'package:native_device_features/providers/great_places.dart';
 import 'package:native_device_features/widgets/image_input.dart';
 import 'package:native_device_features/widgets/location_input.dart';
@@ -13,20 +14,30 @@ class AddPlaceScreen extends StatelessWidget {
   final _titleController = TextEditingController();
 
   File? _pickerImage;
+  PlaceLocation? _pickedLocation;
 
   void _selectImage(File pickedImage) {
     _pickerImage = pickedImage;
   }
 
   void _savePlace(BuildContext context) {
-    if (_titleController.text.isEmpty && _pickerImage == null) {
+    if (_titleController.text.isEmpty ||
+        _pickerImage == null ||
+        _pickedLocation == null) {
       return;
     }
 
     Provider.of<GreatPlaces>(context, listen: false)
-        .addPlace(_titleController.text, _pickerImage!);
+        .addPlace(_titleController.text, _pickerImage!, _pickedLocation!);
 
     Navigator.of(context).pop();
+  }
+
+  void _selectPickedPlace(double lat, double long) {
+    _pickedLocation = PlaceLocation(
+      latitude: lat,
+      longitude: long,
+    );
   }
 
   AddPlaceScreen({Key? key}) : super(key: key);
@@ -35,7 +46,7 @@ class AddPlaceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
-        middle: Text('{TITLE}'),
+        middle: Text('Add Place'),
       ),
       child: SafeArea(
         child: Padding(
@@ -67,7 +78,9 @@ class AddPlaceScreen extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              const LocationInput(),
+              LocationInput(
+                onPickedPlace: _selectPickedPlace,
+              ),
               const SizedBox(
                 height: 20.0,
               ),

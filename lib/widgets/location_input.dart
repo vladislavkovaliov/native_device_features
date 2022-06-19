@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:native_device_features/helpers/location_helper.dart';
 
-//
-
 class LocationInput extends StatefulWidget {
-  const LocationInput({Key? key}) : super(key: key);
+  Function onPickedPlace;
+
+  LocationInput({
+    Key? key,
+    required this.onPickedPlace,
+  }) : super(key: key);
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -19,6 +22,11 @@ class _LocationInputState extends State<LocationInput> {
     try {
       final locationData = await Location().getLocation();
       final previewImage = LocationHelper.generateLocationPreviewImage(
+        locationData.latitude!,
+        locationData.longitude!,
+      );
+
+      widget.onPickedPlace(
         locationData.latitude!,
         locationData.longitude!,
       );

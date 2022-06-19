@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:native_device_features/providers/great_places.dart';
 import 'package:native_device_features/screens/add_place_screen.dart';
+import 'package:native_device_features/screens/place_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class PlaceListScreen extends StatelessWidget {
@@ -14,7 +16,7 @@ class PlaceListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: const Text('{TITLE}'),
+        middle: const Text('Places List'),
         trailing: CupertinoButton(
           onPressed: () {
             Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
@@ -50,17 +52,25 @@ class PlaceListScreen extends StatelessWidget {
                         SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, idx) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        FileImage(greatPlaces.items[idx].image),
-                                  ),
-                                  const SizedBox(width: 10.0),
-                                  Text(greatPlaces.items[idx].title),
-                                ]),
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    PlaceDetailScreen.routeName,
+                                    arguments: greatPlaces.items[idx].id,
+                                  );
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Row(children: [
+                                    CircleAvatar(
+                                      backgroundImage: FileImage(
+                                          greatPlaces.items[idx].image),
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    Text(greatPlaces.items[idx].title),
+                                  ]),
+                                ),
                               );
                             },
                             childCount: greatPlaces.items.length,

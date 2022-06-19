@@ -11,10 +11,10 @@ class DBHelper {
     // final dbPath = await sql.getDatabasesPath();
 
     return sql.openDatabase(
-      path.join(appDir.path, 'places2.db'),
+      path.join(appDir.path, 'places3.db'),
       onCreate: (db, version) {
         return db.execute('''
-          CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)
+          CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, loc_lat REAL, loc_lng REAL)
         ''');
       },
       version: 1,

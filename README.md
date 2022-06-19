@@ -24,3 +24,4 @@ samples, guidance on mobile development, and a full API reference.
 | Image List | ![Alt Text](list-image.gif) |
 | Fetaching Pplaces from BD | ![Alt Text](fetch-place-db.gif) |
 | Show static location image | ![Alt Text](static-image.gif) |
+| Detail Screen render image preview location | ![Alt Text](detail-place.gif) |

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:native_device_features/providers/great_places.dart';
 import 'package:native_device_features/screens/add_place_screen.dart';
+import 'package:native_device_features/screens/place_detail_screen.dart';
 import 'package:native_device_features/screens/places_list_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         routes: {
           PlaceListScreen.routeName: (ctx) => const PlaceListScreen(),
           AddPlaceScreen.routeName: (ctx) => AddPlaceScreen(),
+          PlaceDetailScreen.routeName: (ctx) => PlaceDetailScreen(),
         },
       ),
     );
