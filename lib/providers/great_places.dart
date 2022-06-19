@@ -37,7 +37,6 @@ class GreatPlaces with ChangeNotifier {
     final list = await DBHelper.getData('user_places');
 
     _items = [];
-    print(list);
 
     if (list.isEmpty) {
       _items = [];

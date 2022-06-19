@@ -67,7 +67,7 @@ class AddPlaceScreen extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              LocationInput(),
+              const LocationInput(),
               const SizedBox(
                 height: 20.0,
               ),

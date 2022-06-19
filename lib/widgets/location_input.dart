@@ -16,8 +16,6 @@ class _LocationInputState extends State<LocationInput> {
   String? _previewImage;
 
   Future<void> _getCurrentUserLocation() async {
-    final loc = await Location();
-
     try {
       final locationData = await Location().getLocation();
       final previewImage = LocationHelper.generateLocationPreviewImage(
