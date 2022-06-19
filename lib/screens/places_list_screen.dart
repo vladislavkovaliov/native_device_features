@@ -33,32 +33,46 @@ class PlaceListScreen extends StatelessWidget {
             ).featchAndSetPlaces(),
             builder: (ctx, snapshot) => Consumer<GreatPlaces>(
               builder: (ctx, greatPlaces, _) {
-                print(greatPlaces.items);
-                if (greatPlaces.items.isEmpty) {
-                  return const Center(
-                    child: Text('Got no places yet, start adding some.'),
-                  );
-                }
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: Text('Loading...'),
+                    );
+                  case ConnectionState.done:
+                    if (greatPlaces.items.isEmpty) {
+                      return const Center(
+                        child: Text('Got no places yet, start adding some.'),
+                      );
+                    }
 
-                return CustomScrollView(
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, idx) {
-                          return Row(children: [
-                            CircleAvatar(
-                              backgroundImage:
-                                  FileImage(greatPlaces.items[idx].image),
-                            ),
-                            const SizedBox(width: 10.0),
-                            Text(greatPlaces.items[idx].title),
-                          ]);
-                        },
-                        childCount: greatPlaces.items.length,
-                      ),
-                    ),
-                  ],
-                );
+                    return CustomScrollView(
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, idx) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(children: [
+                                  CircleAvatar(
+                                    backgroundImage:
+                                        FileImage(greatPlaces.items[idx].image),
+                                  ),
+                                  const SizedBox(width: 10.0),
+                                  Text(greatPlaces.items[idx].title),
+                                ]),
+                              );
+                            },
+                            childCount: greatPlaces.items.length,
+                          ),
+                        ),
+                      ],
+                    );
+                  default:
+                    return const Center(
+                      child: Text('Some errors while reading from database.'),
+                    );
+                }
               },
             ),
           ),

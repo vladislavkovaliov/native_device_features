@@ -22,3 +22,4 @@ samples, guidance on mobile development, and a full API reference.
 | --- | ----------- |
 | Image Picker | ![Alt Text](image-picker.gif) |
 | Image List | ![Alt Text](list-image.gif) |
+| Fetaching Pplaces from BD | ![Alt Text](fetch-place-db.gif) |
